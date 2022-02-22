@@ -1,0 +1,33 @@
+{
+    "license": "MIT",
+    "title": "Reproducibility repository for On the entropy projection and the robustness of high order entropy stable discontinuous Galerkin schemes for under-resolved flows",
+    "upload_type": "software",
+    "creators": [
+        {
+            "affiliation": "Department of Computational and Applied Mathematics, Rice University, Houston, Texas, USA",
+            "name": "Chan, Jesse",
+            "orcid": "0000-0003-2077-3636"
+        },
+        {
+            "affiliation": "Department of Mathematics, University of Hamburg, Hamburg, Germany",
+            "name": "Ranocha, Hendrik",
+            "orcid": "0000-0002-3456-2277"
+        },
+        {
+            "affiliation": "Department of Mathematics and Computer Science, University of Cologne, Germany",
+            "name": "Andrés M. Rueda-Ramírez",
+            "orcid": "0000-0001-6557-9162"
+        },
+        {
+            "affiliation": "Department of Mathematics and Computer Science, University of Cologne, Germany",
+            "name": "Gassner, Gregor J.",
+            "orcid": "0000-0002-1752-1158"
+        },
+        {
+            "affiliation": "Department of Mathematics, Virginia Tech, Blacksburg, Virginia, USA",
+            "name": "Tim Warburton",
+            "orcid": "0000-0002-3202-1151"
+        }
+    ],
+    "access_right": "open"
+}
