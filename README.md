@@ -64,7 +64,7 @@ The numerical experiments were carried out using Julia v1.7.1.
 - [Hendrik Ranocha](https://ranocha.de) (University of Hamburg, Germany)
 - [Andrés M. Rueda-Ramírez](https://www.mi.uni-koeln.de/NumSim/dr-andres-rueda-ramirez) (University of Cologne, Germany)
 - [Gregor Gassner](https://www.mi.uni-koeln.de/NumSim/gregor-gassner) (University of Cologne, Germany)
-- [Tim Warburton](https://math.vt.edu/people/faculty/warburton-tim.html)
+- [Tim Warburton](https://math.vt.edu/people/faculty/warburton-tim.html) (Virginia Tech)
 
 
 ## Disclaimer
