@@ -36,6 +36,12 @@ for (polydeg, cells_per_dimension) in ((3, 64), (7, 32))
                     cells_per_dimension = (cells_per_dimension))
         sol_Gauss = deepcopy(sol)
         @save filename sol_Gauss
+    else
+        # run for a very short time to load libraries
+        trixi_include("elixir_euler_khi_dgmulti.jl", approximation_type = GaussSBP(),
+                    initial_condition = initial_condition_khi_nonsymmetric_perturbation,
+                    tspan = (0, 1e-2), polydeg = polydeg, tsave = tsave, 
+                    cells_per_dimension = (cells_per_dimension))
     end
 
     filename = "data/sol_DGSEM_SC_PP_p$(polydeg)_$(cells_per_dimension)_cells.jld2"
@@ -47,6 +53,13 @@ for (polydeg, cells_per_dimension) in ((3, 64), (7, 32))
                     initial_condition=initial_condition_khi_nonsymmetric_perturbation)
         sol_DGSEM_SC_PP = deepcopy(sol)
         @save filename sol_DGSEM_SC_PP
+    else
+        # run for a very short time to load libraries
+        trixi_include("elixir_euler_khi_dgsem_SC_PP.jl",
+        tspan = (0, 1e-2), polydeg = polydeg, tsave = tsave, 
+        cells_per_dimension = (cells_per_dimension),
+        alpha_max=0.005, 
+        initial_condition=initial_condition_khi_nonsymmetric_perturbation)
     end
 end
 
@@ -107,54 +120,54 @@ for (polydeg, cells_per_dimension) in ((3, 64), (7, 32))
         end
         fig
 
-        save("khi_polydeg_$(polydeg)_$(cells_per_dimension)_cells.png", fig.scene)
+        save("khi_polydeg_$(polydeg)_$(cells_per_dimension)_cells.png", fig.scene, px_per_unit = 3)
     end
 end
 
-# ==================== plot spectra ==================== 
+# # ==================== plot spectra ==================== 
 
-set_theme!()
-with_theme(Theme(markersize = 4, fontsize=22)) do    
-    fig = Figure(resolution=(1500, 600))
-    rows, cols = 1, 2
-    axes = [Makie.Axis(fig[i, j], xscale=log10, yscale=log10) for i in 1:rows, j in 1:cols]
+# set_theme!()
+# with_theme(Theme(markersize = 4, fontsize=22)) do    
+#     fig = Figure(resolution=(1500, 600))
+#     rows, cols = 1, 2
+#     axes = [Makie.Axis(fig[i, j], xscale=log10, yscale=log10) for i in 1:rows, j in 1:cols]
     
-    @load "data/sol_Gauss_p3_64_cells.jld2" sol_Gauss
-    @load "data/sol_DGSEM_SC_PP_p3_64_cells.jld2" sol_DGSEM_SC_PP
-    filename = "data/sol_ascii_N3_64elems.dat"
-    polydeg, total_cells, x, y, rho, u, v, p = read_fluxo_sol(filename)
+#     @load "data/sol_Gauss_p3_64_cells.jld2" sol_Gauss
+#     @load "data/sol_DGSEM_SC_PP_p3_64_cells.jld2" sol_DGSEM_SC_PP
+#     filename = "data/sol_ascii_N3_64elems.dat"
+#     polydeg, total_cells, x, y, rho, u, v, p = read_fluxo_sol(filename)
     
-    Ek_Gauss, k1D = compute_2D_energy_spectrum(convert_to_Cartesian_arrays(sol_Gauss.u[end], sol_Gauss.prob.p)[1:4]...)
-    Ek_DGSEM_SC_PP, k1D = compute_2D_energy_spectrum(convert_to_Cartesian_arrays(sol_DGSEM_SC_PP.u[end], sol_DGSEM_SC_PP.prob.p)[1:4]...)
-    Ek_subcell, k1D = compute_2D_energy_spectrum(convert_to_Cartesian_arrays(polydeg, total_cells, x, y, rho, u, v, p)[1:4]...)
-    p = sortperm(k1D)
+#     Ek_Gauss, k1D = compute_2D_energy_spectrum(convert_to_Cartesian_arrays(sol_Gauss.u[end], sol_Gauss.prob.p)[1:4]...)
+#     Ek_DGSEM_SC_PP, k1D = compute_2D_energy_spectrum(convert_to_Cartesian_arrays(sol_DGSEM_SC_PP.u[end], sol_DGSEM_SC_PP.prob.p)[1:4]...)
+#     Ek_subcell, k1D = compute_2D_energy_spectrum(convert_to_Cartesian_arrays(polydeg, total_cells, x, y, rho, u, v, p)[1:4]...)
+#     p = sortperm(k1D)
 
-    Makie.scatter!(axes[1, 1], k1D, Ek_Gauss, label="Gauss")
-    Makie.scatter!(axes[1, 1], k1D, Ek_subcell, label="DGSEM-Subcell")
-    Makie.scatter!(axes[1, 1], k1D, Ek_DGSEM_SC_PP, label="DGSEM-SC-PP")
-    Makie.lines!(axes[1, 1], k1D[p], 1.5e8*k1D[p] .^ (-7/3), label=L"k^{-7/3}", linestyle=:dash) #, title="Energy spectra, T = $(sol_Gauss.t[time_index])")    
-    axislegend(axes[1, 1], position=:lb)
-    Makie.ylims!(axes[1, 1], (1e-5, 1e9))
-    Label(fig[1, 1, Bottom()], L"$N = 3$ mesh of $64^2$ elements", padding=(0, 0, 0, 50), textsize=32)
+#     Makie.scatter!(axes[1, 1], k1D, Ek_Gauss, label="Gauss")
+#     Makie.scatter!(axes[1, 1], k1D, Ek_subcell, label="DGSEM-Subcell")
+#     Makie.scatter!(axes[1, 1], k1D, Ek_DGSEM_SC_PP, label="DGSEM-SC-PP")
+#     Makie.lines!(axes[1, 1], k1D[p], 1.5e8*k1D[p] .^ (-7/3), label=L"k^{-7/3}", linestyle=:dash) #, title="Energy spectra, T = $(sol_Gauss.t[time_index])")    
+#     axislegend(axes[1, 1], position=:lb)
+#     Makie.ylims!(axes[1, 1], (1e-5, 1e9))
+#     Label(fig[1, 1, Bottom()], L"$N = 3$ mesh of $64^2$ elements", padding=(0, 0, 0, 50), textsize=32)
 
-    @load "data/sol_Gauss_p7_32_cells.jld2" sol_Gauss
-    @load "data/sol_DGSEM_SC_PP_p7_32_cells.jld2" sol_DGSEM_SC_PP
-    filename = "data/sol_ascii_N7_32elems.dat"
-    polydeg, total_cells, x, y, rho, u, v, p = read_fluxo_sol(filename)
+#     @load "data/sol_Gauss_p7_32_cells.jld2" sol_Gauss
+#     @load "data/sol_DGSEM_SC_PP_p7_32_cells.jld2" sol_DGSEM_SC_PP
+#     filename = "data/sol_ascii_N7_32elems.dat"
+#     polydeg, total_cells, x, y, rho, u, v, p = read_fluxo_sol(filename)
 
-    Ek_Gauss, k1D = compute_2D_energy_spectrum(convert_to_Cartesian_arrays(sol_Gauss.u[end], sol_Gauss.prob.p)[1:4]...)
-    Ek_DGSEM_SC_PP, k1D = compute_2D_energy_spectrum(convert_to_Cartesian_arrays(sol_DGSEM_SC_PP.u[end], sol_DGSEM_SC_PP.prob.p)[1:4]...)
-    Ek_subcell, k1D = compute_2D_energy_spectrum(convert_to_Cartesian_arrays(polydeg, total_cells, x, y, rho, u, v, p)[1:4]...)
-    p = sortperm(k1D)
+#     Ek_Gauss, k1D = compute_2D_energy_spectrum(convert_to_Cartesian_arrays(sol_Gauss.u[end], sol_Gauss.prob.p)[1:4]...)
+#     Ek_DGSEM_SC_PP, k1D = compute_2D_energy_spectrum(convert_to_Cartesian_arrays(sol_DGSEM_SC_PP.u[end], sol_DGSEM_SC_PP.prob.p)[1:4]...)
+#     Ek_subcell, k1D = compute_2D_energy_spectrum(convert_to_Cartesian_arrays(polydeg, total_cells, x, y, rho, u, v, p)[1:4]...)
+#     p = sortperm(k1D)
 
-    Makie.scatter!(axes[1, 2], k1D, Ek_Gauss, label="Gauss")
-    Makie.scatter!(axes[1, 2], k1D, Ek_subcell, label="DGSEM-Subcell")
-    Makie.scatter!(axes[1, 2], k1D, Ek_DGSEM_SC_PP, label="DGSEM-SC-PP")
-    Makie.lines!(axes[1, 2], k1D[p], 1.5e8*k1D[p] .^ (-7/3), label=L"k^{-7/3}", linestyle=:dash) #, title="Energy spectra, T = $(sol_Gauss.t[time_index])")    
-    axislegend(axes[1, 2], position=:lb)
-    Makie.ylims!(axes[1, 2], (1e-5, 1e9))
-    # rowsize!(fig.layout, 1, Aspect(2, 1))
-    Label(fig[1, 2, Bottom()], L"$N = 7$ mesh of $32^2$ elements", padding=(0, 0, 0, 50), textsize=32)
+#     Makie.scatter!(axes[1, 2], k1D, Ek_Gauss, label="Gauss")
+#     Makie.scatter!(axes[1, 2], k1D, Ek_subcell, label="DGSEM-Subcell")
+#     Makie.scatter!(axes[1, 2], k1D, Ek_DGSEM_SC_PP, label="DGSEM-SC-PP")
+#     Makie.lines!(axes[1, 2], k1D[p], 1.5e8*k1D[p] .^ (-7/3), label=L"k^{-7/3}", linestyle=:dash) #, title="Energy spectra, T = $(sol_Gauss.t[time_index])")    
+#     axislegend(axes[1, 2], position=:lb)
+#     Makie.ylims!(axes[1, 2], (1e-5, 1e9))
+#     # rowsize!(fig.layout, 1, Aspect(2, 1))
+#     Label(fig[1, 2, Bottom()], L"$N = 7$ mesh of $32^2$ elements", padding=(0, 0, 0, 50), textsize=32)
 
-    save("spectra.png", fig.scene)    
-end
+#     save("spectra.png", fig.scene)    
+# end
