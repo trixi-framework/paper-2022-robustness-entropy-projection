@@ -2,6 +2,9 @@ The Trixi.jl elixirs contained in this folder can be used to reproduce
 results in the paper "On the entropy projection and the robustness of high 
 order entropy stable discontinuous Galerkin schemes for under-resolved flows".
 
+The `data` folder contains some precomputed results in the form of `.jld2` files. 
+If you wish to run simulations from scratch, delete the files in this folder.
+
 # Crash detection elixirs
 
 The following elixirs reproduce results in Section 3 on crash times of 
