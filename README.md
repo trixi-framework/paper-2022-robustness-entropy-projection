@@ -1,7 +1,7 @@
 # On the entropy projection and the robustness of high order entropy stable discontinuous Galerkin schemes for under-resolved flows
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-success.svg)](https://opensource.org/licenses/MIT)
-[![DOI](https://zenodo.org/badge/DOI/TODO.svg)](https://doi.org/TODO)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6364108.svg)](https://doi.org/10.5281/zenodo.6364108)
 
 This repository contains information and code to reproduce the results presented in the
 article
@@ -31,7 +31,7 @@ use the implementations provided here, please **also** cite this repository as
   year={2022},
   month={02},
   howpublished={\url{https://github.com/trixi-framework/paper-2022-robustness-entropy-projection}},
-  doi={TODO}
+  doi={10.5281/zenodo.6364108}
 }
 ```
 
