@@ -25,7 +25,7 @@ numerical setups.
   the crash times (if the numerical simulations crashes at all) and
   saves the result in a file `taylor_green_vortex.txt`.
 
-# KHI analysis elixirs
+# Kelvin-Helmholtz instability (KHI) analysis elixirs
 
 The following elixirs reproduce results in Section 4 of the paper.
 
