@@ -4,7 +4,7 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6364108.svg)](https://doi.org/10.5281/zenodo.6364108)
 
 This repository contains information and code to reproduce the results presented in the
-article
+[article](https://arxiv.org/abs/2203.10238)
 ```bibtex
 @online{chan2022entropy,
   title={On the entropy projection and the robustness of high order entropy stable 
@@ -12,8 +12,8 @@ article
   author={Chan, Jesse and Ranocha, Hendrik and Rueda-Ram\'{i}rez, Andr{\'e}s M 
           and Gassner, Gregor J and Warburton, Tim},
   year={2022},
-  month={02},
-  eprint={TODO},
+  month={03},
+  eprint={2203.10238},
   eprinttype={arxiv},
   eprintclass={math.NA}
 }
