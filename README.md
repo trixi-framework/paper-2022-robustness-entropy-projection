@@ -6,13 +6,16 @@
 This repository contains information and code to reproduce the results presented in the
 [article](https://arxiv.org/abs/2203.10238)
 ```bibtex
-@online{chan2022entropy,
-  title={On the entropy projection and the robustness of high order entropy stable 
-         discontinuous {G}alerkin schemes for under-resolved flows},
-  author={Chan, Jesse and Ranocha, Hendrik and Rueda-Ram\'{i}rez, Andr{\'e}s M 
+@article{chan2022entropy,
+  title={On the entropy projection and the robustness of high order entropy
+         stable discontinuous {G}alerkin schemes for under-resolved flows},
+  author={Chan, Jesse and Ranocha, Hendrik and Rueda-Ram\'{i}rez, Andr{\'e}s M
           and Gassner, Gregor J and Warburton, Tim},
+  journal={Frontiers in Physics},
   year={2022},
-  month={03},
+  month={07},
+  doi={10.3389/fphy.2022.898028},
+  volume={10},
   eprint={2203.10238},
   eprinttype={arxiv},
   eprintclass={math.NA}
