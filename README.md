@@ -4,7 +4,7 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6364108.svg)](https://doi.org/10.5281/zenodo.6364108)
 
 This repository contains information and code to reproduce the results presented in the
-[article](https://arxiv.org/abs/2203.10238)
+[article](https://doi.org/10.3389/fphy.2022.898028)
 ```bibtex
 @article{chan2022entropy,
   title={On the entropy projection and the robustness of high order entropy
@@ -21,6 +21,7 @@ This repository contains information and code to reproduce the results presented
   eprintclass={math.NA}
 }
 ```
+(also available [on arXiv.org](https://arxiv.org/abs/2203.10238)).
 
 If you find these results useful, please cite the article mentioned above. If you
 use the implementations provided here, please **also** cite this repository as
